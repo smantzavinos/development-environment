@@ -1,0 +1,14 @@
+---
+- hosts: all
+  become: true
+  gather_facts: yes
+  tasks:
+    - include_role: 
+        name: ansible-role-postgresql
+      vars:
+        postgres_users_no_log: false
+        postgresql_databases:
+          - name: shopifyreviewbanner_dev
+        postgresql_users: 
+          - name: postgres
+            password: postgres

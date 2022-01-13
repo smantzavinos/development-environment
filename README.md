@@ -54,6 +54,7 @@ Hyper-V is hardware virtualization provided by Windows. It requires Windows 10 P
 cd C:\Path\to\this\file
 vagrant up
 ```
+The first run of this command took 22 minutes on my laptop.
 
 ### Connect
 ```powershell
