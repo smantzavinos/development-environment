@@ -61,4 +61,9 @@ The first run of this command took 22 minutes on my laptop.
 vagrant ssh
 ```
 
+#### Port Forwarding
+You can start the ssh connection to the vagrant VM with port forwarding. This example forwards host port 4040 to VM port 4000. You can forward the same port number as well.
+```powershell
+vagrant ssh -- -L 4040:localhost:4000
+```
 
