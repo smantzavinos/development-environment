@@ -1,0 +1,3 @@
+# Windows users will have text files converted from Windows style line endings
+# (\r\n) to Unix style line endings (\n) when they’re added to the repository
+* text=auto
