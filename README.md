@@ -65,5 +65,12 @@ vagrant ssh
 You can start the ssh connection to the vagrant VM with port forwarding. This example forwards host port 4040 to VM port 4000. You can forward the same port number as well.
 ```powershell
 vagrant ssh -- -L 4040:localhost:4000
+
+##### Set ZSH as default shell
+I had trouble getting ZSH to stick as the default shell. You can run this to set it. 
+```sh
+sudo chsh -s $(which zsh) $(whoami)
+```
+Note: you will need to log out and reconnect for the change to take effect. 
 ```
 

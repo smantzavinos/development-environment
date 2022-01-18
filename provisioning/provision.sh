@@ -144,6 +144,21 @@ sudo apt-add-repository ppa:fish-shell/release-3
 sudo apt-get update
 sudo apt-get install -y fish
 
+# install zsh
+if [ -d ~/.oh-my-zsh ]; then
+    echo "Skipping. oh-my-zsh is already installed"
+else
+    echo "Installing zsh..."
+    sudo apt-get install -y --no-install-recommends zsh
+    # Make ZSH the default shell
+    sudo chsh -s $(which zsh)
+    echo "zsh installed"
+
+    echo "Installing oh-my-zsh..."
+    sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+    echo "oh-my-zsh installed"
+fi
+
 # install tmux
 sudo apt install -y tmux
 
