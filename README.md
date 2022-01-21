@@ -45,7 +45,13 @@ Virtualization is provided by [Vagrant by HashiCorp](https://www.vagrantup.com/)
 
 ### Hyper-V
 Hyper-V is hardware virtualization provided by Windows. It requires Windows 10 Pro or higher. Read more [here](https://docs.microsoft.com/en-us/virtualization/hyper-v-on-windows/about/).
-[Install Hyper-V on Windows 10](Install Hyper-V on Windows 10)
+
+You can enable Hyper-V by following the Microsoft instructions: [Install Hyper-V on Windows 10](https://docs.microsoft.com/en-us/virtualization/hyper-v-on-windows/quick-start/enable-hyper-v)
+
+Alternatively, you can enable Hyper-V by running the following PowerShell command as an Admin:
+```powershell
+Enable-WindowsOptionalFeature -Online -FeatureName:Microsoft-Hyper-V -All
+```
 
 ## Usage
 
