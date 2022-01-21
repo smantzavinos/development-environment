@@ -52,6 +52,11 @@ Alternatively, you can enable Hyper-V by running the following PowerShell comman
 ```powershell
 Enable-WindowsOptionalFeature -Online -FeatureName:Microsoft-Hyper-V -All
 ```
+You may also need to create a Virtual Switch for Hyper-V. If so (you will know because `vagrant up` will fail), you can create one with:
+```powershell
+New-VMSwitch -name InternalSwitch -SwitchType Internal
+```
+More info on Virtual Switches here: [Create a virtual switch for Hyper-V virtual machines](https://docs.microsoft.com/en-us/windows-server/virtualization/hyper-v/get-started/create-a-virtual-switch-for-hyper-v-virtual-machines)
 
 ## Usage
 
