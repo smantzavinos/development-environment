@@ -39,6 +39,9 @@ Vagrant.configure("2") do |config|
     #v.customize ["modifyvm", :id, "--draganddrop", "bidirectional"]
   end
 
+  # Disable synced folder
+  config.vm.synced_folder ".", "/vagrant", disabled: true
+
   # Network settings are ignored for Hyper-V provider
   config.vm.network "forwarded_port", guest: 4000, host: 4040
 
