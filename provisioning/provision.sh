@@ -33,6 +33,10 @@ if [ ! -d $h/vimfiles ]; then
     pushd $h
     git clone https://github.com/smantzavinos/vimfiles.git
     popd
+else
+    pushd $h/vimfiles
+    git pull
+    popd
 fi
 
 if [ ! -d $h/.config ]; then
@@ -112,18 +116,31 @@ sudo apt-get update
 sudo apt-get install -y fish
 
 # install zsh
-if [ -d ~/.oh-my-zsh ]; then
-    echo "Skipping. oh-my-zsh is already installed"
+if [ -x "$(command -v zsh)" ]; then
+    echo "zsh is already installed. No action taken."
 else
     echo "Installing zsh..."
     sudo apt-get install -y --no-install-recommends zsh
+
     # Make ZSH the default shell
     sudo chsh -s $(which zsh)
     echo "zsh installed"
+fi
 
-    echo "Installing oh-my-zsh..."
-    sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended
-    echo "oh-my-zsh installed"
+if [ ! -d $h/.oh-my-zsh ]; then
+    printf "Installing oh-my-zsh... "
+    # Install manually (not using install script) to make sure it installs for
+    # the correct user
+    git clone https://github.com/ohmyzsh/ohmyzsh.git $h/.oh-my-zsh
+    cp $h/.zshrc $h/.zshrc.orig
+    cp $h/.oh-my-zsh/templates/zshrc.zsh-template $h/.zshrc
+
+    printf "oh-my-zsh installed \n"
+fi
+
+# Install powerlevel10k oh-my-zsh theme
+if [ ! -d ${ZSH_CUSTOM:-$h/.oh-my-zsh/custom}/themes/powerlevel10k ]; then
+    git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ${ZSH_CUSTOM:-$h/.oh-my-zsh/custom}/themes/powerlevel10k
 fi
 
 # install tmux
@@ -133,6 +150,10 @@ sudo apt install -y tmux
 if [ ! -d $h/dotfiles ]; then
     pushd $h
     git clone https://github.com/smantzavinos/dotfiles.git
+    popd
+else
+    pushd $h/dotfiles
+    git pull
     popd
 fi
 
