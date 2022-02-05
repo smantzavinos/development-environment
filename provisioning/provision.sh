@@ -140,7 +140,7 @@ sudo apt-get install -y --no-install-recommends imagemagick
 # sudo -i -u postgres psql -c "CREATE USER postgres WITH PASSWORD 'postgres';"
 
 # install fish shell
-sudo apt-add-repository ppa:fish-shell/release-3
+sudo apt-add-repository -y ppa:fish-shell/release-3
 sudo apt-get update
 sudo apt-get install -y fish
 
@@ -155,7 +155,7 @@ else
     echo "zsh installed"
 
     echo "Installing oh-my-zsh..."
-    sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+    sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended
     echo "oh-my-zsh installed"
 fi
 
@@ -192,29 +192,43 @@ fish <<'END_FISH'
 END_FISH
 
 # install Packer
-curl -fsSL https://apt.releases.hashicorp.com/gpg | sudo apt-key add -
-sudo apt-add-repository "deb [arch=amd64] https://apt.releases.hashicorp.com $(lsb_release -cs) main"
-sudo apt-get update && sudo apt-get install -y packer
+if [ -x "$(command -v packer)" ]; then
+    printf "Packer already installed. No action taken. \n"
+else
+    curl -fsSL https://apt.releases.hashicorp.com/gpg | sudo apt-key add -
+    sudo apt-add-repository "deb [arch=amd64] https://apt.releases.hashicorp.com $(lsb_release -cs) main"
+    sudo apt-get update && sudo apt-get install -y packer
+fi
 
-# install docker
-sudo apt-get install -y \
-    apt-transport-https \
-    ca-certificates \
-    curl \
-    gnupg \
-    lsb-release
-curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg
-echo \
-  "deb [arch=amd64 signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/ubuntu \
-  $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
-sudo apt-get update
-sudo apt-get install -y docker-ce docker-ce-cli containerd.io
+if [ -x "$(command -v docker)" ]; then
+    printf "Docker already installed. No action taken. \n"
+else
+    printf "Installing Docker... \n"
+    sudo apt-get install -y \
+        apt-transport-https \
+        ca-certificates \
+        curl \
+        gnupg \
+        lsb-release
+    curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg
+    echo \
+      "deb [arch=amd64 signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/ubuntu \
+      $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+    sudo apt-get update
+    sudo apt-get install -y docker-ce docker-ce-cli containerd.io
+fi
 
 # install terraform
-sudo apt-get update && sudo apt-get install -y gnupg software-properties-common curl
-curl -fsSL https://apt.releases.hashicorp.com/gpg | sudo apt-key add -
-sudo apt-add-repository "deb [arch=amd64] https://apt.releases.hashicorp.com $(lsb_release -cs) main"
-sudo apt-get update && sudo apt-get install terraform
+if [ -x "$(command -v docker)" ]; then
+    # update terraform
+    printf "Terraform already installed. No action taken. \n"
+else
+    printf "Installing Terraform... \n"
+    sudo apt-get update && sudo apt-get install -y gnupg software-properties-common curl
+    curl -fsSL https://apt.releases.hashicorp.com/gpg | sudo apt-key add -
+    sudo apt-add-repository "deb [arch=amd64] https://apt.releases.hashicorp.com $(lsb_release -cs) main"
+    sudo apt-get update && sudo apt-get install terraform
+fi
 
 # configure git to use nvim as the default editor
 git config --global core.editor "nvim"
