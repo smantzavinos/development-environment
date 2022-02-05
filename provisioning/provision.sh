@@ -9,30 +9,8 @@ export DEBIAN_FRONTEND=noninteractive
 
 sudo apt-get update
 
-
-#   config.vm.provision "install xfce", type: "shell" do |s|
-#     s.inline = "sudo DEBIAN_FRONTEND=noninteractive apt-get install -y xfce4"
-#   end
-  
-#   # Permit anyone to start the GUI
-#   config.vm.provision "allow anyone to start GUI", type: "shell" do |s|
-#     s.inline = "sudo sed -i 's/allowed_users=.*$/allowed_users=anybody/' /etc/X11/Xwrapper.config"
-#   end
-
 # install the desktop.
-sudo apt-get install -y --no-install-recommends \
-    xfce4 
-    # xorg \
-    # xserver-xorg-video-qxl \
-    # xserver-xorg-video-fbdev \
-    # xserver-xorg-video-vmware \
-    # xfce4-terminal \
-    # lightdm \
-    # lightdm-gtk-greeter \
-    # xfce4-whiskermenu-plugin \
-    # xfce4-taskmanager \
-    # menulibre \
-    # firefox
+sudo apt-get install -y --no-install-recommends xfce4 
 
 # Permit anyone to start the GUI
 sudo sed -i 's/allowed_users=.*$/allowed_users=anybody/' /etc/X11/Xwrapper.config
@@ -49,15 +27,7 @@ sudo apt-get install -y --no-install-recommends whois
 sudo snap install core; sudo snap refresh core
 sudo snap install --classic certbot
 
-# set system configuration.
-# rm -f /{root,home/*}/.{profile,bashrc}
-# cp -v -r /vagrant/config/etc/* /etc
-
-# apt-get remove -y --purge xscreensaver
-# apt-get autoremove -y --purge
-
 h=/home/vagrant
-
 
 if [ ! -d $h/vimfiles ]; then
     pushd $h
@@ -135,9 +105,6 @@ nvim +PlugInstall +qall
 
 # Instal Image Magick for image processing
 sudo apt-get install -y --no-install-recommends imagemagick
-
-# sudo apt install -y --no-install-recommends postgresql postgresql-contrib
-# sudo -i -u postgres psql -c "CREATE USER postgres WITH PASSWORD 'postgres';"
 
 # install fish shell
 sudo apt-add-repository -y ppa:fish-shell/release-3
