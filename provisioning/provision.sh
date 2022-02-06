@@ -188,6 +188,18 @@ fish <<'END_FISH'
     fisher update
 END_FISH
 
+# install GitHub CLI
+if [[ -x "$(command -v gh)" ]]; then
+    # Upgrade
+    sudo apt install gh
+else
+    printf "Installing GitHub CLI \n"
+    curl -fsSL https://cli.github.com/packages/githubcli-archive-keyring.gpg | sudo dd of=/etc/apt/trusted.gpg.d/githubcli-archive-keyring.gpg
+    echo "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/trusted.gpg.d/githubcli-archive-keyring.gpg] https://cli.github.com/packages stable main" | sudo tee /etc/apt/sources.list.d/github-cli.list > /dev/null
+    sudo apt update
+    sudo apt install gh
+fi
+
 # install Packer
 if [[ -x "$(command -v packer)" ]]; then
     printf "Packer already installed. No action taken. \n"
