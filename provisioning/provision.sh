@@ -29,7 +29,7 @@ sudo snap install --classic certbot
 
 h=/home/vagrant
 
-if [ ! -d $h/vimfiles ]; then
+if [[ ! -d "$h/vimfiles" ]]; then
     pushd $h
     git clone https://github.com/smantzavinos/vimfiles.git
     popd
@@ -39,15 +39,15 @@ else
     popd
 fi
 
-if [ ! -d $h/.config ]; then
+if [[ ! -d "$h/.config" ]]; then
     mkdir $h/.config
 fi
 
-if [ ! -d $h/.config/nvim ]; then
+if [[ ! -d "$h/.config/nvim" ]]; then
     mkdir $h/.config/nvim
 fi
 
-if [ ! -f $h/.config/nvim/init.vim ]; then
+if [[ ! -f "$h/.config/nvim/init.vim" ]]; then
     ln -s $h/vimfiles/_vimrc $h/.config/nvim/init.vim
 fi
 
@@ -60,7 +60,7 @@ sudo apt-get -y install build-essential autoconf m4 libncurses5-dev libwxgtk3.0-
 sudo apt install -y --no-install-recommends curl
 
 # Install asdf
-if [ ! -d $h/.asdf ]; then
+if [[ ! -d "$h/.asdf" ]]; then
     git clone https://github.com/asdf-vm/asdf.git $h/.asdf --branch v0.8.1
     echo ". $h/.asdf/asdf.sh" >> $h/.bashrc 
     echo ". $h/.asdf/completions/asdf.bash" >> $h/.bashrc 
@@ -82,7 +82,7 @@ sudo apt-get install -y --no-install-recommends esl-erlang
 sudo apt-get install -y --no-install-recommends elixir
 
 # Install vim plug
-if [ ! -d $h/.local/share/nvim/site/autoload/plug.vim ]; then
+if [[ ! -d "$h/.local/share/nvim/site/autoload/plug.vim" ]]; then
     sh -c "curl -fLo $h/.local/share/nvim/site/autoload/plug.vim --create-dirs \
         https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim"
 fi
@@ -90,14 +90,14 @@ fi
 # Manual build of coc-elixir
 # The reason to build manually is to make sure it matches the same version
 # of Elixir and OTP that are installed
-if [ ! -d "$h/.elixir-ls" ]; then
+if [[ ! -d "$h/.elixir-ls" ]]; then
     git clone https://github.com/elixir-lsp/elixir-ls.git $h/.elixir-ls
     pushd $h/.elixir-ls
     mix deps.get && mix compile && mix elixir_ls.release -o release
     popd
 fi
 # Set CocConifg to use the manually built coc-elxir
-if [ ! -f $h/.config/nvim/coc-settings.json ]; then
+if [[ ! -f "$h/.config/nvim/coc-settings.json" ]]; then
     printf "{\n  \"elixir.pathToElixirLS\": \"~/.elixir-ls/release/language_server.sh\"\n}" > $h/.config/nvim/coc-settings.json
 fi
 
@@ -116,7 +116,7 @@ sudo apt-get update
 sudo apt-get install -y fish
 
 # install zsh
-if [ -x "$(command -v zsh)" ]; then
+if [[ -x "$(command -v zsh)" ]]; then
     echo "zsh is already installed. No action taken."
 else
     echo "Installing zsh..."
@@ -127,27 +127,33 @@ else
     echo "zsh installed"
 fi
 
-if [ ! -d $h/.oh-my-zsh ]; then
+if [[ ! -d "$h/.oh-my-zsh" ]]; then
     printf "Installing oh-my-zsh... "
     # Install manually (not using install script) to make sure it installs for
     # the correct user
     git clone https://github.com/ohmyzsh/ohmyzsh.git $h/.oh-my-zsh
-    cp $h/.zshrc $h/.zshrc.orig
-    cp $h/.oh-my-zsh/templates/zshrc.zsh-template $h/.zshrc
 
     printf "oh-my-zsh installed \n"
 fi
 
 # Install powerlevel10k oh-my-zsh theme
-if [ ! -d ${ZSH_CUSTOM:-$h/.oh-my-zsh/custom}/themes/powerlevel10k ]; then
-    git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ${ZSH_CUSTOM:-$h/.oh-my-zsh/custom}/themes/powerlevel10k
+theme_dir=${ZSH_CUSTOM:-$h/.oh-my-zsh/custom}/themes/powerlevel10k
+if [[ ! -d "$theme_dir" ]]; then
+    printf "Cloning powerlevel10k theme..."
+    git clone --depth=1 https://github.com/romkatv/powerlevel10k.git $theme_dir
+    printf "Done cloning powerlevel10k theme... \n"
+else
+    echo "powerlevel10k dir already exists"
 fi
+
+# Set the them to powerlevel10k
+sed -i 's|ZSH_THEME=.*|ZSH_THEME="powerlevel10k/powerlevel10k"|' "$h/.zshrc"
 
 # install tmux
 sudo apt install -y tmux
 
 # Download dotfiles
-if [ ! -d $h/dotfiles ]; then
+if [[ ! -d "$h/dotfiles" ]]; then
     pushd $h
     git clone https://github.com/smantzavinos/dotfiles.git
     popd
@@ -158,20 +164,23 @@ else
 fi
 
 # tmux symlinks
-if [ ! -f $h/.tmux.conf ]; then
+if [[ ! -f "$h/.tmux.conf" ]]; then
     ln -s $h/dotfiles/.tmux.conf $h/.tmux.conf
 fi
 
 # fish shell symlinks
-if [ ! -d $h/.config/fish ]; then
+if [[ ! -d "$h/.config/fish" ]]; then
     mkdir $h/.config/fish
 fi
-if [ ! -f $h/.config/fish/config.fish ]; then
+if [[ ! -f "$h/.config/fish/config.fish" ]]; then
     ln -s $h/dotfiles/fish/config.fish $h/.config/fish/config.fish
 fi
-if [ ! -f $h/.config/fish/fish_plugins ]; then
+if [[ ! -f "$h/.config/fish/fish_plugins" ]]; then
     ln -s $h/dotfiles/fish/fish_plugins $h/.config/fish/fish_plugins
 fi
+
+# zsh symlink
+ln -sf $h/dotfiles/zsh/.zshrc $h/.zshrc
 
 # install fish plugins
 fish <<'END_FISH'
@@ -180,7 +189,7 @@ fish <<'END_FISH'
 END_FISH
 
 # install Packer
-if [ -x "$(command -v packer)" ]; then
+if [[ -x "$(command -v packer)" ]]; then
     printf "Packer already installed. No action taken. \n"
 else
     curl -fsSL https://apt.releases.hashicorp.com/gpg | sudo apt-key add -
@@ -188,7 +197,7 @@ else
     sudo apt-get update && sudo apt-get install -y packer
 fi
 
-if [ -x "$(command -v docker)" ]; then
+if [[ -x "$(command -v docker)" ]]; then
     printf "Docker already installed. No action taken. \n"
 else
     printf "Installing Docker... \n"
@@ -207,7 +216,7 @@ else
 fi
 
 # install terraform
-if [ -x "$(command -v docker)" ]; then
+if [[ -x "$(command -v docker)" ]]; then
     # update terraform
     printf "Terraform already installed. No action taken. \n"
 else
