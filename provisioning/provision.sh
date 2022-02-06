@@ -123,7 +123,7 @@ else
     sudo apt-get install -y --no-install-recommends zsh
 
     # Make ZSH the default shell
-    sudo chsh -s $(which zsh)
+    sudo chsh -s $(which zsh) vagrant
     echo "zsh installed"
 fi
 
