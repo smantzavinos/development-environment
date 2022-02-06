@@ -168,6 +168,14 @@ if [[ ! -f "$h/.tmux.conf" ]]; then
     ln -s $h/dotfiles/.tmux.conf $h/.tmux.conf
 fi
 
+# install tmux plugin manager
+if [[ ! -d "$h/.tmux/plugins/tpm" ]]; then
+    git clone https://github.com/tmux-plugins/tpm $h/.tmux/plugins/tpm
+fi
+
+# Install tmux plugins
+$h/.tmux/plugins/tpm/bin/install_plugins
+
 # fish shell symlinks
 if [[ ! -d "$h/.config/fish" ]]; then
     mkdir $h/.config/fish
