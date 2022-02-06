@@ -174,7 +174,7 @@ if [[ ! -d "$h/.tmux/plugins/tpm" ]]; then
 fi
 
 # Install tmux plugins
-$h/.tmux/plugins/tpm/bin/install_plugins
+# $h/.tmux/plugins/tpm/bin/install_plugins
 
 # fish shell symlinks
 if [[ ! -d "$h/.config/fish" ]]; then
