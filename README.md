@@ -58,6 +58,9 @@ New-VMSwitch -name InternalSwitch -SwitchType Internal
 ```
 More info on Virtual Switches here: [Create a virtual switch for Hyper-V virtual machines](https://docs.microsoft.com/en-us/windows-server/virtualization/hyper-v/get-started/create-a-virtual-switch-for-hyper-v-virtual-machines)
 
+### Alacritty
+Recommend using alacritty as the terminal on the Windows host. It is GPU accelerated, so it has the best performance of terminals I have found. Particularly when re-rendering the full screen, like you do when moving between tabs in vim.
+
 ## Usage
 
 ### Start
@@ -76,12 +79,27 @@ vagrant ssh
 You can start the ssh connection to the vagrant VM with port forwarding. This example forwards host port 4040 to VM port 4000. You can forward the same port number as well.
 ```powershell
 vagrant ssh -- -L 4040:localhost:4000
+```
 
-##### Set ZSH as default shell
+#### Set ZSH as default shell
 I had trouble getting ZSH to stick as the default shell. You can run this to set it. 
 ```sh
 sudo chsh -s $(which zsh) $(whoami)
 ```
 Note: you will need to log out and reconnect for the change to take effect. 
-```
 
+
+# Tips and tricks
+
+## vim
+### Vim settings for easy copy and paste
+There is no setup to share the host clipboard with the VM. You can copy paste text directly within Alacritty. Copy paste shortcuts for Alacritty are Ctrl+Shift+C and Ctrl+Shift+V.
+The problem is this also copies any text along the left edge (line numbers and git gutter). These can be disabled with:
+#### Turn off line numbers
+```vim
+set nonumber norelativenumber
+```
+#### Hide vim gutter
+```vim
+set signcolumn=no
+```
