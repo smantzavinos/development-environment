@@ -124,6 +124,7 @@ else
 
     # Make ZSH the default shell
     sudo chsh -s $(which zsh) vagrant
+
     echo "zsh installed"
 fi
 
@@ -135,6 +136,9 @@ if [[ ! -d "$h/.oh-my-zsh" ]]; then
 
     printf "oh-my-zsh installed \n"
 fi
+
+# install github completion for ZSH shell
+gh completion -s zsh > sudo /usr/local/share/zsh/site-functions/_gh
 
 # Install powerlevel10k oh-my-zsh theme
 theme_dir=${ZSH_CUSTOM:-$h/.oh-my-zsh/custom}/themes/powerlevel10k
