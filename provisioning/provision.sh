@@ -242,7 +242,7 @@ else
 fi
 
 # install terraform
-if [[ -x "$(command -v docker)" ]]; then
+if [[ -x "$(command -v terraform)" ]]; then
     # update terraform
     printf "Terraform already installed. No action taken. \n"
 else
@@ -251,6 +251,26 @@ else
     curl -fsSL https://apt.releases.hashicorp.com/gpg | sudo apt-key add -
     sudo apt-add-repository "deb [arch=amd64] https://apt.releases.hashicorp.com $(lsb_release -cs) main"
     sudo apt-get update && sudo apt-get install terraform
+fi
+
+# install aws cli
+if [[ -x "$(command -v aws)" ]]; then
+    printf "aws-cli already installed. No action taken. \n"
+else
+    printf "Installing aws-cli... \n"
+    curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
+    unzip awscliv2.zip
+    sudo ./aws/install
+fi
+
+# install cloud-nuke tool
+if [[ -x "$(command -v cloud-nuke)" ]]; then
+    printf "cloud-nuke already installed. No action taken. \n"
+else
+    printf "Installing cloud-nuke... \n"
+    wget https://github.com/gruntwork-io/cloud-nuke/releases/download/v0.11.3/cloud-nuke_linux_amd64
+    sudo mv cloud-nuke_linux_amd64 /usr/local/bin/cloud-nuke
+    sudo chmod u+x /usr/local/bin/cloud-nuke
 fi
 
 # configure git to use nvim as the default editor
