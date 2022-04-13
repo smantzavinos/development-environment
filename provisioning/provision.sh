@@ -22,6 +22,7 @@ sudo apt-get install -y --no-install-recommends python2
 sudo apt-get install -y --no-install-recommends inotify-tools
 sudo apt-get install -y --no-install-recommends dnsutils
 sudo apt-get install -y --no-install-recommends whois
+sudo apt-get install -y --no-install-recommends jq
 
 # install certbot
 sudo snap install core; sudo snap refresh core
