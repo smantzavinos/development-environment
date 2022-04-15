@@ -23,6 +23,7 @@ sudo apt-get install -y --no-install-recommends inotify-tools
 sudo apt-get install -y --no-install-recommends dnsutils
 sudo apt-get install -y --no-install-recommends whois
 sudo apt-get install -y --no-install-recommends jq
+sudo apt-get install -y --no-install-recommends fzf
 
 # install certbot
 sudo snap install core; sudo snap refresh core
@@ -151,8 +152,21 @@ else
     echo "powerlevel10k dir already exists"
 fi
 
-# Set the them to powerlevel10k
+# Set the theme to powerlevel10k
 sed -i 's|ZSH_THEME=.*|ZSH_THEME="powerlevel10k/powerlevel10k"|' "$h/.zshrc"
+
+# Install fzf-tab to reploace default zsh auto-completion with fzf
+fzf_tab_dir=${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/fzf-tab
+if [[ ! -d "$fzf_tab_dir" ]]; then
+    printf "Cloning fzf-tab plugin..."
+    git clone https://github.com/Aloxaf/fzf-tab $fzf_tab_dir
+    printf "Done cloning fzf-tab plugin... \n"
+else
+    echo "Pulling updates for fzf-tab plugin"
+    pushd $fzf_tab_dir
+    git pull
+    popd
+fi
 
 # install tmux
 sudo apt install -y tmux
