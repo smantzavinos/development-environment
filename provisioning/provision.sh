@@ -24,6 +24,7 @@ sudo apt-get install -y --no-install-recommends dnsutils
 sudo apt-get install -y --no-install-recommends whois
 sudo apt-get install -y --no-install-recommends jq
 sudo apt-get install -y --no-install-recommends fzf
+sudo apt-get install -y --no-install-recommends bat
 
 # install certbot
 sudo snap install core; sudo snap refresh core
