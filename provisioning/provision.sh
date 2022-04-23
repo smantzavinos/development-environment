@@ -17,14 +17,15 @@ sudo sed -i 's/allowed_users=.*$/allowed_users=anybody/' /etc/X11/Xwrapper.confi
 
 # install useful tools.
 sudo apt-get install -y --no-install-recommends git-all
-sudo apt-get install -y --no-install-recommends neovim ripgrep
+sudo apt-get install -y --no-install-recommends neovim
 sudo apt-get install -y --no-install-recommends python2
 sudo apt-get install -y --no-install-recommends inotify-tools
 sudo apt-get install -y --no-install-recommends dnsutils
 sudo apt-get install -y --no-install-recommends whois
 sudo apt-get install -y --no-install-recommends jq
 sudo apt-get install -y --no-install-recommends fzf
-sudo apt-get install -y --no-install-recommends bat
+sudo apt-get install -y --no-install-recommends -o Dpkg::Options::="--force-overwrite" bat ripgrep
+
 
 # install certbot
 sudo snap install core; sudo snap refresh core
