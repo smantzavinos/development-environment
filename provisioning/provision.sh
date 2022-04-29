@@ -212,7 +212,7 @@ fi
 # zsh symlink
 ln -sf $h/dotfiles/zsh/.zshrc $h/.zshrc
 # powerlevel10k theme config symlink
-ln -sf $h/dotfiles/zsh/.p10k $h/.p10k
+ln -sf $h/dotfiles/zsh/.p10k.zsh $h/.p10k.zsh
 
 # install fish plugins
 fish <<'END_FISH'
