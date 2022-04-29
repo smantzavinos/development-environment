@@ -25,6 +25,7 @@ sudo apt-get install -y --no-install-recommends whois
 sudo apt-get install -y --no-install-recommends jq
 sudo apt-get install -y --no-install-recommends fzf
 sudo apt-get install -y --no-install-recommends -o Dpkg::Options::="--force-overwrite" bat ripgrep
+sudo apt-get install -y --no-install-recommends terraform-ls
 
 
 # install certbot
