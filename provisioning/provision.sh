@@ -156,7 +156,10 @@ else
 fi
 
 # Set the theme to powerlevel10k
-sed -i 's|ZSH_THEME=.*|ZSH_THEME="powerlevel10k/powerlevel10k"|' "$h/.zshrc"
+# Note: the first time this is run the .zshrc does not yet exist so this line fails.
+# For now it just moves on. Should figure out how to fix. When exactly is .zshrc created?
+# Maybe just launching a zsh shell somehow will create the initial zshrc file
+sed -i 's|ZSH_THEME=.*|ZSH_THEME="powerlevel10k/powerlevel10k"|' "$h/.zshrc" || true
 
 # Install fzf-tab to reploace default zsh auto-completion with fzf
 fzf_tab_dir=${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/fzf-tab
@@ -280,7 +283,7 @@ if [[ -x "$(command -v aws)" ]]; then
 else
     printf "Installing aws-cli... \n"
     curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
-    unzip awscliv2.zip
+    unzip -tq awscliv2.zip
     sudo ./aws/install
 fi
 
