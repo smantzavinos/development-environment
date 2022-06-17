@@ -145,9 +145,6 @@ if [[ ! -d "$h/.oh-my-zsh" ]]; then
     printf "oh-my-zsh installed \n"
 fi
 
-# install github completion for ZSH shell
-gh completion -s zsh > sudo /usr/local/share/zsh/site-functions/_gh
-
 # Install powerlevel10k oh-my-zsh theme
 theme_dir=${ZSH_CUSTOM:-$h/.oh-my-zsh/custom}/themes/powerlevel10k
 if [[ ! -d "$theme_dir" ]]; then
@@ -233,6 +230,9 @@ else
     echo "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/trusted.gpg.d/githubcli-archive-keyring.gpg] https://cli.github.com/packages stable main" | sudo tee /etc/apt/sources.list.d/github-cli.list > /dev/null
     sudo apt update
     sudo apt install gh
+
+    # install github completion for ZSH shell
+    gh completion -s zsh > sudo /usr/local/share/zsh/site-functions/_gh
 fi
 
 # install Packer
