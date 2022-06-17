@@ -61,6 +61,31 @@ More info on Virtual Switches here: [Create a virtual switch for Hyper-V virtual
 ### Alacritty
 Recommend using alacritty as the terminal on the Windows host. It is GPU accelerated, so it has the best performance of terminals I have found. Particularly when re-rendering the full screen, like you do when moving between tabs in vim.
 
+Preferred font: [Consolas NF](https://github.com/whitecolor/my-nerd-fonts/tree/master/Consolas%20NF)
+
+Configure Alacritty to use the font by creating or editing `~\AppData\Roaming\alacritty\alacritty.yml` with:
+```YAML
+# Font configuration (changes require restart) 
+font: 
+  # The size to use. 
+  size: 12 
+  # The normal (roman) font face to use. 
+  normal: 
+    family: Consolas NF 
+    # Style can be specified to pick a specific face. 
+    style: Book 
+  # The bold font face 
+  bold: 
+    family: Consolas NF 
+    # Style can be specified to pick a specific face. 
+    style: Bold 
+  # The italic font face 
+  italic: 
+    family: Consolas NF 
+    # Style can be specified to pick a specific face. 
+    style: Italic
+```
+
 ## Usage
 
 ### Start
