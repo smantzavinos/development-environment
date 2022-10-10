@@ -223,10 +223,20 @@ fish <<'END_FISH'
     fisher update
 END_FISH
 
+# install emacs 28
+# "$(emacs --version | grep -Po "(\d+\.+\d)")"
+# if [ "$(emacs --version | grep -Po "(\d+\.+\d)")" = "26.3" ]; then 
+#     echo "match"
+# else
+# fi
+
 # install GitHub CLI
 if [[ -x "$(command -v gh)" ]]; then
     # Upgrade
-    sudo apt install gh
+    printf "Upgrading GitHub CLI \n"
+    sudo apt update
+    # This is failing for some reason. Ignore error for now
+    sudo apt install gh || true
 else
     printf "Installing GitHub CLI \n"
     curl -fsSL https://cli.github.com/packages/githubcli-archive-keyring.gpg | sudo dd of=/etc/apt/trusted.gpg.d/githubcli-archive-keyring.gpg
