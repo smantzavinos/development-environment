@@ -1,0 +1,3 @@
+[submodule "provisioning/roles/ansible-role-postgresql"]
+	path = provisioning/roles/ansible-role-postgresql
+	url = https://github.com/geerlingguy/ansible-role-postgresql

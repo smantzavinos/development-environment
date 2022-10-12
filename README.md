@@ -21,6 +21,11 @@ Virtual machine based development environment for a variety of programming langu
 ## Virtual Machine
 Virtualization is provided by [Vagrant by HashiCorp](https://www.vagrantup.com/) using the [Hyper-V](https://docs.microsoft.com/en-us/virtualization/hyper-v-on-windows/about/) provider.
 
+## Provisioning
+Provisioning of the virtual machine is done first by running the `provisioning/provision.sh` script. This installs all of the development tools and configures them. This is designed to be safe to run multiple times. It is also safe to run this script manually from within the virtual machine.
+
+Postgresql is provisioned using a third party [postgresql Ansible role](https://github.com/geerlingguy/ansible-role-postgresql) as a submodule.
+
 ## Supported Languages
 
 - Elixir
